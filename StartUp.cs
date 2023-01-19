@@ -7,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace Otus_HomeWork4
 {
-    public class App:BackgroundService
+    public class StartUp:BackgroundService
     {
         private IGame _game;
-        public App(IGame game) {
+        public StartUp(IGame game) {
             _game = game;
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            return Task.Factory.StartNew(() => { _game.Start();}); 
+            return Task.Factory.StartNew(() => {
+                _game.Start();
+            }); 
         }
     }
 }
