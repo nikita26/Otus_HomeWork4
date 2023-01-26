@@ -1,6 +1,4 @@
-﻿using System;
-using System.Xml.Serialization;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -8,9 +6,6 @@ namespace Otus_HomeWork4
 {
     class Programm
     {
-        /// <summary>
-        /// D - принцип инверсии зависимости
-        /// </summary>
         public static void Main(string[] args)
         {
             var builder = CreateAppBuilder(args);
@@ -32,9 +27,8 @@ namespace Otus_HomeWork4
 
         /// <summary>
         /// Конфигурирвание приложения
+        /// D - принцип инверсии зависимости
         /// </summary>
-        /// <param name="builder"></param>
-        /// <returns></returns>
         public static IHost ConfigurateApp(IHostBuilder builder) =>
             builder.ConfigureServices(services => services
                 .AddTransient<IGame, Game>()

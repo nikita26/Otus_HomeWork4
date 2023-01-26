@@ -74,8 +74,19 @@ namespace Otus_HomeWork4
     /// </summary>
     public interface IGame:IGameStarter,IGameConfigurator,IGameStatistics
     {
+        /// <summary>
+        /// Настройки игры
+        /// </summary>
         IGameSettings _settings { get; }
+
+        /// <summary>
+        /// Платформа запуска игры
+        /// </summary>
         IGamePlatform _platform { get; }
+
+        /// <summary>
+        /// Поставщик настроек игры
+        /// </summary>
         ISettingsProvider _settingsProvider { get; }
 
         /// <summary>
