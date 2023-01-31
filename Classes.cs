@@ -10,66 +10,66 @@ namespace Otus_HomeWork4
 {
     public class Game : IGame
     {
-        public IGameSettings _settings { get; }
-        public IGamePlatform _platform { get; }
-        public ISettingsProvider _settingsProvider { get; }
-        public ICollection<AnswerUser> _answersUser { get; set; }
+        public IGameSettings Settings { get; }
+        public IGamePlatform Platform { get; }
+        public ISettingsProvider SettingsProvider { get; }
+        public ICollection<AnswerUser> AnswersUser { get; set; }
 
-        public int _userTryCount { get; set; }
-        public int _userAnswer { get; set; }
+        public int UserTryCount { get; set; }
+        public int UserAnswer { get; set; }
 
         public Game(IGameSettings settings, IGamePlatform platform, ISettingsProvider settingsProvider)
         {
-            _settings = settings;
-            _platform = platform;
-            _settingsProvider = settingsProvider;
-            _answersUser = new List<AnswerUser>();
+            Settings = settings;
+            Platform = platform;
+            SettingsProvider = settingsProvider;
+            AnswersUser = new List<AnswerUser>();
 
-            _userTryCount = 1;
+            UserTryCount = 1;
 
             SetSettings();
         }
 
         public void SetSettings()
         {
-            _settings.MaxValue = _settingsProvider.GetMaxValue();
-            _settings.MinValue = _settingsProvider.GetMinValue();
-            _settings.TryCount = _settingsProvider.GetTryCount();
+            Settings.MaxValue = SettingsProvider.GetMaxValue();
+            Settings.MinValue = SettingsProvider.GetMinValue();
+            Settings.TryCount = SettingsProvider.GetTryCount();
 
         }
         public int Start()
         {
-            _settings.TagretValue = new Random().Next(_settings.MinValue, _settings.MaxValue);
+            Settings.TagretValue = new Random().Next(Settings.MinValue, Settings.MaxValue);
 
             do
             {
-                _userAnswer = _platform.GetUserAnswer();
-                if (_userAnswer == _settings.TagretValue)
+                UserAnswer = Platform.GetUserAnswer();
+                if (UserAnswer == Settings.TagretValue)
                 {
-                    _answersUser.Add(new CorrectAnswerUser{ Value = _userAnswer,Index = _userTryCount });
+                    AnswersUser.Add(new CorrectAnswerUser{ Value = UserAnswer,Index = UserTryCount });
 
-                    _platform.DisplayMessage($"Победа!!! Вы угадали число!!! Вам потребовалось {_userTryCount} попытки!!!");
-                    ShowStatistics(_platform);
+                    Platform.DisplayMessage($"Победа!!! Вы угадали число!!! Вам потребовалось {UserTryCount} попытки!!!");
+                    ShowStatistics(Platform);
                     return 1;
                 }
-                else if (_userAnswer > _settings.TagretValue)
-                    _platform.DisplayMessage("Загаданное число меньше");
-                else if (_userAnswer < _settings.TagretValue)
-                    _platform.DisplayMessage("Загаданное число больше");
+                else if (UserAnswer > Settings.TagretValue)
+                    Platform.DisplayMessage("Загаданное число меньше");
+                else if (UserAnswer < Settings.TagretValue)
+                    Platform.DisplayMessage("Загаданное число больше");
 
-                _answersUser.Add(new AnswerUser{ Value = _userAnswer, Index = _userTryCount });
+                AnswersUser.Add(new AnswerUser{ Value = UserAnswer, Index = UserTryCount });
 
-                _userTryCount++;
+                UserTryCount++;
             }
-            while (_settings.TryCount >= _userTryCount);
+            while (Settings.TryCount >= UserTryCount);
 
-            _platform.DisplayMessage($"Вы не угадали число {_settings.TagretValue} за {_settings.TryCount} попыток... Попробуйте еще раз!");
+            Platform.DisplayMessage($"Вы не угадали число {Settings.TagretValue} за {Settings.TryCount} попыток... Попробуйте еще раз!");
 
             return 0;
         }
         public void ShowStatistics(IGamePlatform platform)
         {
-            foreach(var answer in _answersUser)
+            foreach(var answer in AnswersUser)
                 platform.DisplayMessage(answer.GetAnswer());
         }
     }

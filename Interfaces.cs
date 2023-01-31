@@ -77,27 +77,27 @@ namespace Otus_HomeWork4
         /// <summary>
         /// Настройки игры
         /// </summary>
-        IGameSettings _settings { get; }
+        IGameSettings Settings { get; }
 
         /// <summary>
         /// Платформа запуска игры
         /// </summary>
-        IGamePlatform _platform { get; }
+        IGamePlatform Platform { get; }
 
         /// <summary>
         /// Поставщик настроек игры
         /// </summary>
-        ISettingsProvider _settingsProvider { get; }
+        ISettingsProvider SettingsProvider { get; }
 
         /// <summary>
         /// Количество совершенных пользователем попыток
         /// </summary>
-        int _userTryCount { get; set; }
+        int UserTryCount { get; set; }
 
         /// <summary>
         /// Текущий ответ пользователя
         /// </summary>
-        int _userAnswer{ get; set; }
+        int UserAnswer{ get; set; }
 
     }
 
@@ -135,7 +135,7 @@ namespace Otus_HomeWork4
         /// <summary>
         /// Всё ответы пользователя
         /// </summary>
-        public ICollection<AnswerUser> _answersUser { get; set; }
+        public ICollection<AnswerUser> AnswersUser { get; set; }
 
         /// <summary>
         /// Демонстрация статистики пользователя 
